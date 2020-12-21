@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.dao.TeacherInfoBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.bean.TeacherInfoBean" >
+    <constructor >
+      <idArg column="tid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="loginID" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, tname, sex, loginID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.bean.TeacherInfoBeanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_teacher_info
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_teacher_info
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.bean.TeacherInfoBeanExample" >
+    delete from tbl_teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.bean.TeacherInfoBean" >
+    insert into tbl_teacher_info (tid, tname, sex, 
+      loginID)
+    values (#{tid,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{loginid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.bean.TeacherInfoBean" >
+    insert into tbl_teacher_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="loginid != null" >
+        loginID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="loginid != null" >
+        #{loginid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.bean.TeacherInfoBeanExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_teacher_info
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tname != null" >
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginid != null" >
+        loginID = #{record.loginid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_teacher_info
+    set tid = #{record.tid,jdbcType=VARCHAR},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      loginID = #{record.loginid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.bean.TeacherInfoBean" >
+    update tbl_teacher_info
+    <set >
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="loginid != null" >
+        loginID = #{loginid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.bean.TeacherInfoBean" >
+    update tbl_teacher_info
+    set tname = #{tname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      loginID = #{loginid,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPrimaryKeyCascadeTeach" parameterType="java.lang.String" >
+
+
+   DELETE FROM tbl_teach WHERE tid=#{value}
+
+  </delete>
+  <delete id="deleteByPrimaryKeyTeach_info" parameterType="java.lang.String" >
+    delete from tbl_teacher_info
+    where tid= #{value}
+
+  </delete>
+  <!--批量删除-->
+  <delete id="deleteUserAllById" parameterType="com.zx.bean.TeacherInfoBean">
+    delete from
+    tbl_teacher_info  where tid in
+    <foreach item="tid" collection="tid" open="(" close=")" separator="," >
+      #{tid}
+    </foreach>
+  </delete>
+</mapper>

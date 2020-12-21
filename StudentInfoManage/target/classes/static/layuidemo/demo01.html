@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用layui</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body>
+    <div class="layui-main" style="border: 1px solid red">
+
+
+        <div class="layui-row">
+            <div class="layui-col-md6" style="background: #00F7DE">
+                你的内容 6/12
+
+            </div>
+            <div class="layui-col-md3" style="background: #00FF00">
+                你的内容 3/12
+            </div>
+            <div class="layui-col-md3" style="background: red">
+                你的内容 3/12
+            </div>
+        </div>
+        <hr/>
+        <div class="layui-row">
+            <div class="layui-col-md3" style="background: blue">
+                你的内容 6/12
+
+            </div>
+            <div class="layui-col-md3" style="background: #00FF00">
+                你的内容 3/12
+            </div>
+            <div class="layui-col-md3" style="background: red">
+                你的内容 3/12
+            </div>
+            <div class="layui-col-md3" style="background: oldlace">
+                你的内容 3/12
+            </div>
+        </div>
+
+        <hr/>
+
+
+
+    </div>
+
+    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">
+        <i class="layui-icon layui-icon-print"></i>一个标准的按钮
+    </button>
+
+
+
+    <button type="button" class="layui-btn">一个标准的按钮</button>
+    <a href="http://www.layui.com" class="layui-btn layui-btn-danger">一个可跳转的按钮</a>
+
+
+
+<!-- 你的HTML代码 -->
+
+<script src="../layui/layui.js"></script>
+
+<script>
+    //一般直接写在一个js文件中
+    //user['layer', 'form']  表示使用layer模块和form模块
+    layui.use(['layer', 'form','table','tree'], function(){
+        var layer = layui.layer
+            ,form = layui.form;
+        var tree = layui.tree;
+        /*
+        layer.open({
+            type: 1,
+            content: '传入任意的文本或html' //这里content是一个普通的String
+        });
+
+        layer.msg('第一个layui提示框');*/
+    });
+</script>
+</body>
+</html>

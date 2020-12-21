@@ -1,0 +1,88 @@
+
+
+<div   tyle="padding: 20px 0 0 0;">
+    <form class="layui-form"  lay-filter="rolegroupFormFilter"  >
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择权限</label>
+            <div class="layui-input-inline" style="height:380px ">
+                <input type="hidden" name="groupid" id="groupid">
+                <input type="hidden" name="menuids" id="menuids">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="setRoleFrom">保存</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<!--导入 Ztree-->
+
+<link rel="stylesheet" href="/ztree/css/demo.css" type="text/css">
+<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/ztree/js/jquery.ztree.core-3.4.js"></script>
+<script type="text/javascript" src="/ztree/js/jquery.ztree.excheck-3.4.js"></script>
+<script type="text/javascript" src="/ztree/js/jquery.ztree.exedit-3.4.js"></script>
+
+<script>
+    layui.use(['admin', 'form', 'upload'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,upload = layui.upload;
+
+
+    })
+
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        check: {
+            enable: true,
+            chkStyle: "checkbox"
+        }
+        ,callback:{
+            onCheck: function (event,treeId,treeNode) {
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                var nodes=treeObj.getCheckedNodes(true);
+
+                var idsArray=new Array();
+                for (var i=0;i<nodes.length;i++){
+                    console.log(nodes[i]);
+                    console.log("选中的树结点的ID属性值为:"+nodes[i].id);
+                    idsArray[i]=nodes[i].id;
+                }
+                var strIds=idsArray.join(",");
+                $("#menuids").val(strIds);
+            }
+        }
+    };
+
+
+    $(document).ready(function(){ //页面加载完毕后执行fucntion中的代码
+        //ztree的节点数据应该用数据库中获取
+        //此处要发送异步请求，获得系统中的所有的菜单节点
+var gid=$("#groupid").val();
+        $.get("/roleGroup/queryRoleGroupMenus",{groupid:gid},function(serverData){
+            console.log("服务端返回的数据为:");
+            console.log(serverData);
+            var zNodes = serverData.data;//获得服务端返回的树节点
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+        },'json')
+
+
+
+
+
+
+    });
+</script>

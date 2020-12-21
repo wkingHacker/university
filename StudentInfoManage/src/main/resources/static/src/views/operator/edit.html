@@ -1,0 +1,73 @@
+
+
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+    <form class="layui-form"  lay-filter="operatorFormFilter"  >
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="loginname" lay-verify="loginName"
+                       placeholder="请输出登录名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" name="oldname" lay-verify="loginName"
+                       placeholder="请输出登录名" autocomplete="off" class="layui-input" style="display: none">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+                <input type="password" name="loginpwd"  lay-verify="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认</label>
+            <div class="layui-input-inline">
+                <input type="password" name="confirmloginpwd"  lay-verify="required|confirmPass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="realname" required  lay-verify="required" placeholder="姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">所属权限组</label>
+            <div class="layui-input-block">
+                <select name="groupid" id="roleGroupSelect">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" required  lay-verify="phone" placeholder="电话" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="addOperatorForm">保存</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<script>
+    layui.use(['admin', 'form', 'upload'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,upload = layui.upload;
+
+        form.verify({
+            confirmPass:function(value){
+                if($('input[name=loginpwd]').val() !== value)
+                    return '两次密码输入不一致！';
+            }
+        });
+    })
+
+</script>

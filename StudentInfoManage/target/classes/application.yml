@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /
+  port: 8080
+spring:
+  application:
+    name: SpringBootDemo
+  datasource:
+    username: root
+    password: ndsx668811
+    url: jdbc:mysql://cdb-ipb6eq1w.cd.tencentcdb.com:10070/manager?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录s
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+devtools:
+  remote:
+    restart:
+      enabled: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    cache: false
+mybatis:
+  mapper-locations: classpath:com/zx/dao/*Mapper.xml
+  type-aliases-package: com.zx.bean
+
+
+

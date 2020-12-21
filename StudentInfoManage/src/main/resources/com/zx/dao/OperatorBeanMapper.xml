@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.dao.OperatorBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.bean.OperatorBean" >
+    <constructor >
+      <idArg column="loginID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="groupID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="loginName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="loginPwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LastLoginIp" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LastLoginTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="src" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg select="com.zx.dao.RoleGroupBeanMapper.selectByPrimaryKey" javaType="com.zx.bean.RoleGroupBean" column="groupID"></arg>
+    </constructor>
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    loginID, groupID, loginName, loginPwd,src,LastLoginIp,LastLoginTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.bean.OperatorBeanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from tbl_operator
+    where loginID = #{loginid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_operator
+    where loginID = #{loginid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.bean.OperatorBeanExample" >
+    delete from tbl_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.bean.OperatorBean" >
+    insert into tbl_operator (loginID, groupID, loginName, 
+      loginPwd,LastLoginIp)
+    values (#{loginid,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, 
+      #{loginpwd,jdbcType=VARCHAR},#{LastLoginIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.bean.OperatorBean" >
+    insert into tbl_operator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        loginID,
+      </if>
+      <if test="groupid != null" >
+        groupID,
+      </if>
+      <if test="loginname != null" >
+        loginName,
+      </if>
+      <if test="loginpwd != null" >
+        loginPwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        #{loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        #{loginpwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.bean.OperatorBeanExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_operator
+    <set >
+      <if test="record.loginid != null" >
+        loginID = #{record.loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null" >
+        groupID = #{record.groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginname != null" >
+        loginName = #{record.loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginpwd != null" >
+        loginPwd = #{record.loginpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_operator
+    set loginID = #{record.loginid,jdbcType=VARCHAR},
+      groupID = #{record.groupid,jdbcType=VARCHAR},
+      loginName = #{record.loginname,jdbcType=VARCHAR},
+      loginPwd = #{record.loginpwd,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.bean.OperatorBean" >
+    update tbl_operator
+    <set >
+      <if test="groupid != null" >
+        groupID = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        loginPwd = #{loginpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loginID = #{loginid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.bean.OperatorBean" >
+    update tbl_operator
+    set groupID = #{groupid,jdbcType=VARCHAR},
+      loginName = #{loginname,jdbcType=VARCHAR},
+      loginPwd = #{loginpwd,jdbcType=VARCHAR}
+    where loginID = #{loginid,jdbcType=VARCHAR}
+  </update>
+<select id="getloginid" parameterType="string" resultType="com.zx.bean.OperatorBean">
+  select
+   <include refid="Base_Column_List" />
+  from tbl_operator where loginName=#{loginname,jdbcType=VARCHAR}
+
+</select>
+</mapper>

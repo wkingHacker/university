@@ -1,0 +1,76 @@
+<title>学生管理</title>
+
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+        <a lay-href="">主页</a>
+        <a><cite>学生管理</cite></a>
+        <a><cite>学生信息查询</cite></a>
+    </div>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <!--在单页版本的layuiAdmn中要保证lay-filter的唯一性  -->
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="laystudentinfo-studentinfo-formlist">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">学生名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="tname" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="tid" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" lay-submit  lay-filter="LAY-studentinfo-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i> 添加</button>
+                    <button class="layui-btn layui-btn-sm" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+                    <button class="layui-btn layui-btn-sm" lay-event="update"><i class="layui-icon layui-icon-edit"></i> 编辑</button>
+                </div>
+            </script>
+
+
+            <!--用于显示用户所属性的权限组名称-->
+            <script type="text/html" id="groupNames">
+
+                {{#   if (d.roleGroupBean!=null) {  }}
+                {{d.roleGroupBean.groupname}}
+                {{#    }   }}
+            </script>
+
+
+            <script type="text/html" id="rightbarDemo">
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+
+            <table id="LAY-studentinfo-manage" lay-filter="LAY-studentinfo-manage"></table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use('studentinfo', layui.factory('studentinfo')).use(['studentinfo','table'], function(){
+        var $ = layui.$
+            ,admin = layui.admin
+            ,view = layui.view
+            ,table = layui.table
+            ,form = layui.form;
+
+
+    });
+</script>

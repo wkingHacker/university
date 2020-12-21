@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用layui</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body>
+
+    <button id="btn0" class="layui-btn"> 0（信息框，默认）</button>
+    <button id="btn1" class="layui-btn"> 1（页面层）</button>
+    <button id="btn2" class="layui-btn"> 2（iframe层）</button>
+    <button id="btn3" class="layui-btn"> 3（加载层）</button>
+    <button id="btn4" class="layui-btn"> 4（tips层）</button>
+
+    <iframe src="http://www.sina.com"></iframe>
+
+
+    <script src="../layui/layui.js"></script>
+
+<script>
+    //一般直接写在一个js文件中
+    //user['layer', 'form']  表示使用layer模块和form模块  layer就是弹出层模块
+    layui.use(['layer','laydate'], function(){
+        var layer = layui.layer
+            ,form = layui.form;
+        var  $ = layui.$;//引用jquery脚本
+
+        //document.getELementById("btn1");
+
+        //jquery中找id=btn1的语法为  $("#btn1"); //#bt1n类似于样式表的id选择器
+
+
+        $("#btn0").click(function(){
+            //表示点击id=btn1的元素时，要执行的代码
+          layer.open({type:0,content:"默认效果"})
+        });
+
+        $("#btn1").click(function(){
+            //表示点击id=btn1的元素时，要执行的代码
+            layer.open({type:1,content:$("#myPopDiv")});//将id=myPopDiv 的元素及内部代码 显示在弹出层中
+        });
+
+
+        $("#btn2").click(function(){
+            //表示点击id=btn1的元素时，要执行的代码
+            layer.open({type:2,content:"https://www.baidu.com"})
+        });
+
+        $("#btn4").click(function(){
+            //表示点击id=btn1的元素时，要执行的代码
+            layer.open({type:4,content: ['内容', '#btn1']}); //数组第二项即吸附元素选择器或者DOM})
+        });
+
+
+
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#inDate' //指定元素
+        });
+
+    })
+</script>
+</body>
+</html>
+
+
+
+<div style="display: none" id="myPopDiv">
+    弹出界面的html代码
+    <h1>标题</h1>
+    <form  class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入职日期</label>
+            <div class="layui-input-inline">
+                <input type="text" id="inDate" readonly  required lay-verify="required"  autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+    </form>
+</div>
